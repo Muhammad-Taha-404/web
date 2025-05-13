@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+Dashboard{% endblock %}
+{% block content %}
+<div class="flex-1 flex flex-col">
+    {% include "partials/slidebar.html" %}
+     <main class="ml-64 mt-20 p-4">
+{% include "partials/credit.html" %}
+     </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+<div class="max-w-xl mx-auto bg-white rounded-xl shadow-md p-6 mt-10">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Create a New Goal</h2>
+  <form method="POST"  class="space-y-4">
+    {% csrf_token %}
+    
+
+    <div>
+      <label class="block text-gray-700 font-medium mb-1" for="user">User</label>
+      <select name="user" id="user" class="w-full px-4 py-2 border rounded-md text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        <option value="" disabled selected>Select User</option>
+ 
+        {% for user in users %}
+          <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-medium mb-1" for="name">Goal Name</label>
+      <input type="text" name="name" id="name" placeholder="e.g. Vacation Fund"
+        class="w-full px-4 py-2 border rounded-md text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+
+  
+    <div>
+      <label class="block text-gray-700 font-medium mb-1" for="target_amount">Target Amount</label>
+      <input type="number" name="target_amount" id="target_amount" placeholder="e.g. 5000"
+        class="w-full px-4 py-2 border rounded-md text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" required step="0.01">
+    </div>
+
+
+    <div>
+      <label class="block text-gray-700 font-medium mb-1" for="saved_amount">Saved Amount</label>
+      <input type="number" name="saved_amount" id="saved_amount" placeholder="e.g. 1200"
+        class="w-full px-4 py-2 border rounded-md text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" required step="0.01" value="0">
+    </div>
+
+
+    <div>
+      <label class="block text-gray-700 font-medium mb-1" for="deadline">Deadline</label>
+      <input type="date" name="deadline" id="deadline" 
+        class="w-full px-4 py-2 border rounded-md text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500" required>
+    </div>
+
+ 
+    <div>
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200">
+        Create Goal
+      </button>
+    </div>
+  </form>
+</div>
