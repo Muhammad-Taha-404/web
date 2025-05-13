@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded shadow mt-10">
+  <h1 class="text-2xl font-bold text-black mb-6">Add New Budget</h1>
+
+  <form method="POST" class="space-y-6">
+    {% csrf_token %}
+
+    <div>
+      <label class="block teblack font-semibold mb-1">Category</label>
+      {{ form.category }}
+    </div>
+
+    <div>
+      <label class="block text-black font-semibold mb-1">Limit</label>
+      {{ form.limit }}
+    </div>
+
+    <div>
+      <label class="block text-black font-semibold mb-1">Monthly Income</label>
+      {{ form.mounthly_in }}
+    </div>
+
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Save Budget
+    </button>
+  </form>
+</div>
+{% endblock %}

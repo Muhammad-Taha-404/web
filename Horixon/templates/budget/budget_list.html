@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex-1 flex flex-col">
+    {% include "partials/slidebar.html" %}
+     <main class="ml-64 mt-20 p-4">
+<div class="max-w-6xl mx-auto mt-10 px-4 bg-black">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">My Budgets</h1>
+
+    {% if budgets %}
+        <div class="overflow-x-auto bg-black">
+            <table class="min-w-full bg-white text-black border border-gray-300 rounded-md shadow-md">
+                <thead class="bg-gray-100 text-gray-600 text-left text-sm">
+                    <tr>
+                        <th class="py-3 px-4 border-b">Category</th>
+                        <th class="py-3 px-4 border-b">Limit</th>
+                        <th class="py-3 px-4 border-b">Monthly Income</th>
+                        <th class="py-3 px-4 border-b">Total</th>
+                        <th class="py-3 px-4 border-b">Month</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for budget in budgets %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b">{{ budget.category }}</td>
+                            <td class="py-3 px-4 border-b">Rs. {{ budget.limit }}</td>
+                            <td class="py-3 px-4 border-b">Rs. {{ budget.mounthly_in }}</td>
+                            <td class="py-3 px-4 border-b">{{ budget.total }}</td>
+                            <td class="py-3 px-4 border-b">{{ budget.month|date:"F Y" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-gray-500">You haven't created any budgets yet.</p>
+    {% endif %}
+
+    <div class="mt-6">
+        <a href="{% url 'add-budget' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            + Add Budget
+        </a>
+    </div>
+</div></main>
+</div>
+{% endblock %}

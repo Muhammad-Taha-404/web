@@ -9,8 +9,10 @@ urlpatterns = [
     path('transection_complete/',views.transection_complete,name='cmlt_transection'),
     path('transection_list/',views.list_,name='list'),
     path('Card/',views.card,name='card'),
-    path('budget/',views.budget,name='budget'),
-    path('mybudget/',views.mybudget,name='mybudget'),
-
     
+    path('mybudget/',views.mybudget,name='mybudget'),
+    path('goals/add/', views.add_goal, name='add-goal'),
+path('goals/', views.goal_list, name='goal-list'),
+     path('budget/add/', views.add_budget, name='add-budget'),
+     path('budget/', views.budget_list, name='budget-list'), 
 ]

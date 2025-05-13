@@ -73,7 +73,13 @@ class Investment(models.Model):
 
 
 
-
+class Budget1(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.CharField(max_length=100)
+    limit = models.DecimalField(max_digits=10, decimal_places=2)
+    mounthly_in = models.DecimalField(max_digits=10, decimal_places=2)
+    month = models.DateField(auto_now_add=True)
+    total = models.IntegerField(default=0)
 
 
 

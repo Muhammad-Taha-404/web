@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
-from .models import Account2,Transaction,Card,Budget
+from .models import Account2,Transaction,Card,Budget,Goal
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from stdnum import luhn
 from datetime import datetime
+from .forms import GoalForm  
+
 
 # Create your views here.
 def main(request):
@@ -153,17 +155,59 @@ def budget(request):
 
 
 def mybudget(request):
-    budget=Budget.objects.filter(user = request.user)
-    for b in budget:
-        u = model_to_dict(b)
-        used= u['total']
-        bg= u['limit']
-        percent=(used/bg)*100
+    budget=Budget.objects.get(user = request.user)
+    
+    used= budget.total
+    bg= budget.limit
+    percent=(used/bg)*100
 
     if budget.exists():
         return render(request,'Main/mybudget.html',{'budget':budget,'used':used,'percent':percent})
     
 
     return render(request,'Main/mybudget.html')
+
+
+@login_required(login_url='login')
+def add_goal(request):
+    if request.method == 'POST':
+        form = GoalForm(request.POST)
+        if form.is_valid():
+            goal = form.save(commit=False)
+            goal.user = request.user
+            goal.save()
+            return redirect('goal-list')
+    else:
+        form = GoalForm()
+    return render(request, 'Main/add_goal.html', {'form': form})
+
+
+@login_required(login_url='login')
+def goal_list(request):
+    goals = Goal.objects.filter(user=request.user)
+    return render(request, 'goals/goal_list.html', {'goals': goals})
     
 
+
+
+from .models import Budget1
+from .forms import BudgetForm
+
+@login_required(login_url='login')
+def add_budget(request):
+    if request.method == 'POST':
+        form = BudgetForm(request.POST)
+        if form.is_valid():
+            budget = form.save(commit=False)
+            budget.user = request.user
+            budget.save()
+            return redirect('budget-list')
+    else:
+        form = BudgetForm()
+    return render(request, 'budget/add_budget.html', {'form': form})
+
+
+@login_required(login_url='login')
+def budget_list(request):
+    budgets = Budget1.objects.filter(user=request.user)
+    return render(request, 'budget/budget_list.html', {'budgets': budgets})
